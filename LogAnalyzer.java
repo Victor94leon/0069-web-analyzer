@@ -23,6 +23,15 @@ public class LogAnalyzer
         // Create the reader to obtain the data.
         reader = new LogfileReader();
     }
+    
+    /**
+     * Método que crea un objeto de la clase LogAnalyzer
+     */
+    public LogAnalyzer(String archivo)
+    {
+        hourCounts = new int[24];
+        reader = new LogfileReader(archivo);
+    }
 
     /**
      * Analyze the hourly access data from the log file.
