@@ -67,4 +67,21 @@ public class LogAnalyzer
     {
         reader.printData();
     }
+    
+    /**
+     * Método que devuelve el número total de accesos al servidor web registrados en el archivo a analizar
+     */
+    public int numberOfAccesses()
+    {
+        int numeroDeAccesos = 0;
+        if (!reader.hasNext()) {          
+            for (int index = 0;index<hourCounts.length; index++) {
+                numeroDeAccesos = numeroDeAccesos + hourCounts[index];
+            }
+        }
+        else {
+            System.out.println("Este método no puede funcionar aún (invocar antes método analyzeHourlyData)");
+        }
+        return numeroDeAccesos;
+    }
 }
