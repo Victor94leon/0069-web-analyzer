@@ -23,7 +23,7 @@ public class LogAnalyzer
         // Create the reader to obtain the data.
         reader = new LogfileReader();
     }
-    
+
     /**
      * Método que crea un objeto de la clase LogAnalyzer
      */
@@ -59,7 +59,7 @@ public class LogAnalyzer
             hour++;
         }
     }
-    
+
     /**
      * Print the lines of data read by the LogfileReader
      */
@@ -67,7 +67,7 @@ public class LogAnalyzer
     {
         reader.printData();
     }
-    
+
     /**
      * Método que devuelve el número total de accesos al servidor web registrados en el archivo a analizar
      */
@@ -84,7 +84,7 @@ public class LogAnalyzer
         }
         return numeroDeAccesos;
     }
-    
+
     /**
      * Método que devuelve en que hora el servidor ha registrado más accesos (en caso de empate el último con más registros).Si no hay accesos devuelve -1
      */
@@ -108,7 +108,7 @@ public class LogAnalyzer
         }
         return horaMasTransitada;
     }
-    
+
     /**
      * Método que devuelve en que hora el servidor ha registrado menos accesos (en caso de empate el último con más registros). Si no hay accesos devuelve -1
      */
@@ -131,5 +131,33 @@ public class LogAnalyzer
             System.out.println("Este método no puede funcionar aún (invocar antes método analyzeHourlyData)");
         }
         return horaMenosTransitada;
+    }
+
+    /**
+     * Método que devuelve la primera hora del periodo de dos horas con más accesos (en caso de empate devuelve el último periodo). Si no hay accesos devuelve -1
+     */
+    public int busiesPeriod()
+    {
+        int periodoMasTransitado = -1;
+        if (!reader.hasNext()) {
+            int mayorRegistro = 0;
+            for (int index = 0; index<hourCounts.length; index = index+2) {
+                int registrosPeriodo = hourCounts[index] + hourCounts[index+1];
+                if (registrosPeriodo>=mayorRegistro) {
+                    periodoMasTransitado = index;
+                    mayorRegistro = hourCounts[index]+hourCounts[index+1];
+                }
+            }
+            if (mayorRegistro==0) {
+                periodoMasTransitado = -1;
+            }
+            else {
+                System.out.println("El periodo de horas más transitadas son: " + periodoMasTransitado + " y " + (periodoMasTransitado+1));
+            }
+        }
+        else {
+            System.out.println("Este método no puede funcionar aún (invocar antes método analyzeHourlyData)");
+        }
+        return periodoMasTransitado;
     }
 }
