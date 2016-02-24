@@ -84,4 +84,28 @@ public class LogAnalyzer
         }
         return numeroDeAccesos;
     }
+    
+    /**
+     * Método que devuelve en que hora el servidor ha registrado más accesos (en caso de empate el último con mas registros).Si no hay accesos
+     */
+    public int busiesHour()
+    {
+        int horaMasTransitada = -1;
+        if (!reader.hasNext()) {
+            int mayorRegistro = 0;
+            for (int index = 0;index<hourCounts.length; index++) {
+                if (hourCounts[index]>= mayorRegistro) {
+                    horaMasTransitada = index;
+                    mayorRegistro = hourCounts[index];
+                }
+            }
+            if (mayorRegistro==0) {
+                horaMasTransitada = -1;
+            }
+        }
+        else {
+            System.out.println("Este método no puede funcionar aún (invocar antes método analyzeHourlyData)");
+        }
+        return horaMasTransitada;
+    }
 }
