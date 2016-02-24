@@ -86,7 +86,7 @@ public class LogAnalyzer
     }
     
     /**
-     * Método que devuelve en que hora el servidor ha registrado más accesos (en caso de empate el último con mas registros).Si no hay accesos
+     * Método que devuelve en que hora el servidor ha registrado más accesos (en caso de empate el último con más registros).Si no hay accesos devuelve -1
      */
     public int busiesHour()
     {
@@ -107,5 +107,29 @@ public class LogAnalyzer
             System.out.println("Este método no puede funcionar aún (invocar antes método analyzeHourlyData)");
         }
         return horaMasTransitada;
+    }
+    
+    /**
+     * Método que devuelve en que hora el servidor ha registrado menos accesos (en caso de empate el último con más registros). Si no hay accesos devuelve -1
+     */
+    public int quietesHour() 
+    {
+        int horaMenosTransitada = -1;
+        if (!reader.hasNext()) {
+            int menorRegistro = hourCounts[0];
+            for (int index = 0;index<hourCounts.length; index++) {
+                if (hourCounts[index]<= menorRegistro) {
+                    horaMenosTransitada = index;
+                    menorRegistro = hourCounts[index];
+                }
+            }
+            if (menorRegistro==0) {
+                horaMenosTransitada = -1;
+            }
+        }
+        else {
+            System.out.println("Este método no puede funcionar aún (invocar antes método analyzeHourlyData)");
+        }
+        return horaMenosTransitada;
     }
 }
